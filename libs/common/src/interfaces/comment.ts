@@ -10,4 +10,12 @@ export interface IComment {
   page?: number;
   perPage?: number;
   paginate?: boolean;
+  q?: string;
+}
+
+export interface IPostComment {
+  id?: number;
+  ulid?: number;
+  postId?: string;
+  commentId?: number;
 }

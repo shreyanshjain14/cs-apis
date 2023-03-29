@@ -1,5 +1,5 @@
 import { BaseModel } from '@libs/database';
 
-export class CommentsModel extends BaseModel {
+export class CommentModel extends BaseModel {
   static tableName = "comments";
 }

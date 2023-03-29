@@ -67,4 +67,20 @@ export class UserController extends RestController {
       })
     );
   }
+
+  @Post()
+  @Validate(AddUserDto)
+  @HttpCode(201)
+  async addTodo(
+    @Dto() dto: AddUserDto,
+    @Req() req: Request,
+    @Res() res: Response
+  ): Promise<Response> {
+    const data = await this.userService.addPost(dto);
+    return res.success(
+      await this.transform(data, new UserTransformer(), {
+        req,
+      })
+    );
+  }
 }

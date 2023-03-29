@@ -28,4 +28,8 @@ export class UserApiService {
   async deleteUser(inputs: IUser): Promise<boolean> {
     return await this.service.repo.deleteWhere({ id: inputs.id });
   }
+
+  async addTodo(inputs: IUser): Promise<IUser> {
+    return await this.service.repo.create(inputs);
+  }
 }

@@ -3,9 +3,8 @@ exports.up = async function (knex) {
   const migration = await knex.schema.createTable("comments", function (table) {
     table.bigIncrements("id");
     table.string("ulid");
-    table.string("description");
-    table.tinyint("status");
-    table.bigInteger("createdBy");
+    table.bigInteger("postId");
+    table.bigInteger("commentId");
     timestamps(knex, table);
   });
   await knex.raw(onUpdateTrigger("comments"));

@@ -1,9 +1,7 @@
 import { AppConfig } from '@libs/boat';
-import { Exists, IsDateBefore, IsEqualToProp, IsUnique, IsValidEmail, IsValueFromConfig } from '@libs/boat/validator';
-import { Pagination } from '@libs/database';
+import { Exists, IsEqualToProp, IsUnique, IsValidEmail, IsValueFromConfig } from '@libs/boat/validator';
 import {
   IsBoolean,
-  IsDateString,
   IsEmail,
   IsIn,
   IsMobilePhone,
@@ -186,23 +184,28 @@ export class GetUsersDto {
   status: number;
 }
 
-export class AddUserDto {
-  @IsOptional()
+export class AddPostDto {
   @IsString()
-  profilePictureSlug?: string;
+  description?: string;
+}
 
-  @IsOptional()
+export class AddTodoDto {
   @IsString()
-  firstName?: string;
+  todoDescription?: string;
+}
 
-  @IsOptional()
+export class UpdateTodoDto {
   @IsString()
-  lastName?: string;
+  description?: string;
 
-  @IsNotEmpty()
-  address: string;
+  @Exists({ table: "todos", column: "id" })
+  id?: number;
+}
 
-  @IsNotEmpty()
-  @IsNumber()
-  cityId: number;
+export class UpdatePostDto {
+  @IsString()
+  todoDescription?: string;
+
+  @Exists({ table: "posts", column: "id" })
+  id?: number;
 }

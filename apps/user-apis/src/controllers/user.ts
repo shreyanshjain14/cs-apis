@@ -1,10 +1,10 @@
 import { Request, Response, RestController } from '@libs/boat';
 import { Dto, Validate } from '@libs/boat/validator';
-import { UserTransformer } from '@libs/common';
+import { PostTransformer, TodoTransformer, UserTransformer } from '@libs/common';
 import { Controller, Get, HttpCode, Patch, Post, Put, Req, Res, UseGuards } from '@nestjs/common';
 
 import { JwtGuard } from '../../../../libs/users/src/guards/jwtGuard';
-import { AddUserDto, GetUsersDto, UpdateUserProfileDto } from '../dtos';
+import { AddPostDto, AddTodoDto, GetUsersDto, UpdatePostDto, UpdateTodoDto, UpdateUserProfileDto } from '../dtos';
 import { AuthApisService } from '../services';
 import { UserApiService } from '../services/user';
 
@@ -52,33 +52,63 @@ export class UserController extends RestController {
       })
     );
   }
-  @Post()
-  @Validate(AddUserDto)
-  @HttpCode(201)
-  async addPost(
-    @Dto() dto: AddUserDto,
+
+  @Put("posts/:id")
+  @Validate(UpdatePostDto)
+  async updatePost(
+    @Dto() dto: UpdatePostDto,
     @Req() req: Request,
     @Res() res: Response
   ): Promise<Response> {
-    const data = await this.userService.addPost(dto);
+    const data = await this.userService.updatePost(dto);
     return res.success(
-      await this.transform(data, new UserTransformer(), {
+      await this.transform(data, new PostTransformer(), {
         req,
       })
     );
   }
 
-  @Post()
-  @Validate(AddUserDto)
+  @Put("todos/:id")
+  @Validate(UpdateTodoDto)
+  async updateTodo(
+    @Dto() dto: UpdateTodoDto,
+    @Req() req: Request,
+    @Res() res: Response
+  ): Promise<Response> {
+    const data = await this.userService.updateTodo(dto);
+    return res.success(
+      await this.transform(data, new TodoTransformer(), {
+        req,
+      })
+    );
+  }
+  @Post("posts")
+  @Validate(AddPostDto)
   @HttpCode(201)
-  async addTodo(
-    @Dto() dto: AddUserDto,
+  async addPost(
+    @Dto() dto: AddPostDto,
     @Req() req: Request,
     @Res() res: Response
   ): Promise<Response> {
     const data = await this.userService.addPost(dto);
     return res.success(
-      await this.transform(data, new UserTransformer(), {
+      await this.transform(data, new PostTransformer(), {
+        req,
+      })
+    );
+  }
+
+  @Post("todos")
+  @Validate(AddTodoDto)
+  @HttpCode(201)
+  async addTodo(
+    @Dto() dto: AddTodoDto,
+    @Req() req: Request,
+    @Res() res: Response
+  ): Promise<Response> {
+    const data = await this.userService.addTodo(dto);
+    return res.success(
+      await this.transform(data, new TodoTransformer(), {
         req,
       })
     );

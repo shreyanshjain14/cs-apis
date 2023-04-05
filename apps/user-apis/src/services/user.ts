@@ -1,9 +1,11 @@
-import { IUser } from '@libs/common';
+import { IPost, IUser } from '@libs/common';
+import { ITodo } from '@libs/common/interfaces';
 import { Pagination } from '@libs/database';
 import { UserLibService } from '@libs/users';
 import { Injectable } from '@nestjs/common';
 
 import { UpdateUserProfileDto } from '../dtos';
+import { UpdatePostDto, UpdateTodoDto } from '../dtos/user';
 
 @Injectable()
 export class UserApiService {
@@ -21,15 +23,22 @@ export class UserApiService {
     return await this.service.repo.search(inputs);
   }
 
-  async addPost(inputs: IUser): Promise<IUser> {
-    return await this.service.repo.create(inputs);
+  async addPost(inputs: IPost): Promise<IPost> {
+    return await this.service.postRepo.create(inputs);
   }
 
   async deleteUser(inputs: IUser): Promise<boolean> {
-    return await this.service.repo.deleteWhere({ id: inputs.id });
+    return await this.service.todoRepo.deleteWhere({ id: inputs.id });
   }
 
-  async addTodo(inputs: IUser): Promise<IUser> {
-    return await this.service.repo.create(inputs);
+  async addTodo(inputs: ITodo): Promise<ITodo> {
+    return await this.service.todoRepo.create(inputs);
+  }
+
+  async updatePost(inputs: UpdatePostDto): Promise<IPost> {
+    return (await this.service.repo.updateAndReturn({ id: inputs.id }, inputs)) as IPost;
+  }
+  async updateTodo(inputs: UpdateTodoDto): Promise<ITodo> {
+    return (await this.service.repo.updateAndReturn({ id: inputs.id }, inputs)) as ITodo;
   }
 }

@@ -7,6 +7,8 @@ export interface IPost {
   status?: number;
   createdBy?: number;
   createdByUser?: IUser;
+  createdAt?: Date;
+  updatedAt?: Date;
   q?: string;
   page?: number;
   perPage?: number;

@@ -1,3 +1,5 @@
 export class UserLibConstants {
   static USER_REPOSITORY = "USER_REPOSITORTY";
+  static TODO_REPOSITORY = "TODO_REPOSITORTY";
+  static POST_REPOSITORY = "POST_REPOSITORTY";
 }

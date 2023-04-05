@@ -11,4 +11,6 @@ export interface ITodo {
   perPage?: number;
   paginate?: boolean;
   q?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

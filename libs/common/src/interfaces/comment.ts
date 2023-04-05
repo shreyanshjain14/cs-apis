@@ -7,6 +7,8 @@ export interface IComment {
   status?: number;
   createdBy?: number;
   createdByUser?: IUser;
+  createdAt?: Date;
+  updatedAt?: Date;
   page?: number;
   perPage?: number;
   paginate?: boolean;
@@ -18,4 +20,6 @@ export interface IPostComment {
   ulid?: number;
   postId?: string;
   commentId?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
